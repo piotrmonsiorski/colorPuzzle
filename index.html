@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>color puzzle</title>
+  <meta name="description" content="Description">
+  <meta name="author" content="Author">
+  <meta name="robots" content="follow">
+
+  <link rel="stylesheet" href="css/reset.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://monsiorski.com/dyplom/iconville.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <div class="menu">
+    <nav class="navbar">
+      <a name="settingsToggle"><i class="fas fa-cog fa-lg"></i></a>
+      <div class="moves">
+        <span class="moves-label">moves:</span>
+        <span class="moves-count"></span>
+      </div>
+      <a name="help"><i class="fas fa-question fa-lg"></i></a>
+    </nav>
+    <div class="settings-menu">
+      <div class="settings-wrap">
+        <div class="size">
+          <div class="cols">
+            <label for="cols">cols</label>
+            <input type="number" placeholder="cols" name="cols">
+          </div>
+          <div class="rows">
+            <label for="rows">rows</label>
+            <input type="number" placeholder="rows" name="rows">
+          </div>
+        </div>
+        <div class="colors">
+          <input type="color" name="colorTopLeft">
+          <input type="color" name="colorTopRight">
+          <input type="color" name="colorBotLeft">
+          <input type="color" name="colorBotRight">
+        </div>
+        <button class="restart" name="newGame">new game</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="victory open">
+    <div class="message">
+      <h2 class="message-title">you won!</h2>
+      <h3 class="message-result">it took you <span class="res"></span> moves</h3>
+      <button name="closeVictory">awesome!</button>
+    </div>
+  </div>
+
+  <div class="board"></div>
+
+  <script src="js/functions.js"></script>
+  <script src="js/classes.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
