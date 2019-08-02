@@ -1,7 +1,7 @@
 const boardNode = document.querySelector('.board');
 
 class Game {
-  constructor(cols = 5, rows = 5, cornerColors = [ [255,0,0], [0,255,0], [0,0,255], [255,127,0] ]) {
+  constructor(cols = 5, rows = 5, cornerColors = [ [255,178,132], [255,178,255], [255,47,255], [134,47,138] ]) {
     const game = this;
 
     this.board = new Board(cols, rows, cornerColors);
@@ -27,7 +27,7 @@ class Game {
 
     if (this.board.checkBoard()) {
       setTimeout( () => {
-        document.querySelector('.victory').classList.toggle('open');
+        document.querySelector('.message[name="victory"]').classList.toggle('open');
         document.querySelector('.message-result .res').innerHTML = this.moves;
       }, 10 ); // timeout to fire after board is redrawn
     }
@@ -46,11 +46,12 @@ class Board {
 
   newMap(cols, rows) {
     const map = [];
+    let index = 0;
 
     for(let i = 0; i < rows; i++) {
       const row = [];
       for(let j = 0; j < cols; j++) {
-        row.push(new Field(i,j))
+        row.push(new Field(i,j,index++))
       }
       map.push(row);
     }
@@ -65,7 +66,7 @@ class Board {
       const rowNode = document.createElement('div');
       rowNode.classList.add('row');
       for (let j = 0; j < this.cols; j++) {
-        const field = this.map[i][j]
+        const field = this.map[i][j];
         const fieldNode = document.createElement('div');
         fieldNode.classList.add('field');
         fieldNode.style.backgroundColor = `rgb(${field.colR}, ${field.colG}, ${field.colB})`;
@@ -165,10 +166,10 @@ class Board {
     const shuffledFields = map.reduce( (acc, val) => acc.concat(val), [] ) // reduce to 1 dim array
       .filter( field => !field.corner ) // remove corners
       .map( field => {
-        field.shuffleOrder = Math.floor(Math.random()*(cols*rows));
+        field.orderShuffle = Math.floor(Math.random()*(cols*rows));
         return field;
       }) // randomize field.order
-      .sort( (field1, field2) => field1.shuffleOrder - field2.shuffleOrder ); // sord by field.order
+      .sort( (field1, field2) => field1.orderShuffle - field2.orderShuffle ); // sord by field.order
 
     shuffledFields.splice( 0, 0, corners[0]) // add topLeft corner
     shuffledFields.splice( cols-1, 0, corners[1]) // add topRight corner
@@ -186,6 +187,17 @@ class Board {
         map[i][j].posX = i;
         map[i][j].posY = j;
       }
+    }
+  }
+  solveBoard() {
+    const mapOrdered = this.map.reduce( (acc, val) => acc.concat(val), [] )
+      .sort( (a,b) => a.orderCorrect - b.orderCorrect );
+
+    const rows = this.rows;
+    const cols = this.cols;
+    this.map.length = 0;
+    for (let i = 0; i < rows; i++) {
+      this.map.push(mapOrdered.splice(0,cols));
     }
   }
   moveField(row, col) {
@@ -262,7 +274,7 @@ class Board {
 }
 
 class Field {
-  constructor(posX = 0, posY = 0) {
+  constructor(posX = 0, posY = 0, index = 0) {
     this.posX = posX;
     this.posY = posY;
     this.correctX = posX;
@@ -271,6 +283,7 @@ class Field {
     this.colG = 0;
     this.colB = 0;
     this.corner = false;
-    this.shuffleOrder = 0;
+    this.orderShuffle = 0;
+    this.orderCorrect = index;
   }
 }

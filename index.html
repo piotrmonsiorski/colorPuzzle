@@ -10,8 +10,8 @@
   <meta name="robots" content="follow">
 
   <link rel="stylesheet" href="css/reset.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://monsiorski.com/dyplom/iconville.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -19,12 +19,28 @@
 
   <div class="menu">
     <nav class="navbar">
-      <a name="settingsToggle"><i class="fas fa-cog fa-lg"></i></a>
-      <div class="moves">
-        <span class="moves-label">moves:</span>
-        <span class="moves-count"></span>
+      <a name="settingsToggle" class="tooltip-wrap">
+        <i class="fas fa-cog fa-lg"></i>
+        <span class="tooltip">settings</span>
+      </a>
+      <div class="current-game">
+        <a name="solveBoard" class="tooltip-wrap">
+          <i class="fas fa-th fa-lg"></i>
+          <span class="tooltip">solve board</span>
+        </a>
+        <div class="moves">
+          <span class="moves-label">moves:</span>
+          <span class="moves-count"></span>
+        </div>
+        <a name="restartBoard" class="tooltip-wrap">
+          <i class="fas fa-sync-alt fa-lg"></i>
+          <span class="tooltip">restart board</span>
+        </a>
       </div>
-      <a name="help"><i class="fas fa-question fa-lg"></i></a>
+      <a name="help" class="tooltip-wrap">
+        <i class="fas fa-question fa-lg"></i>
+        <span class="tooltip">about</span>
+      </a>
     </nav>
     <div class="settings-menu">
       <div class="settings-wrap">
@@ -49,11 +65,21 @@
     </div>
   </div>
 
-  <div class="victory open">
-    <div class="message">
+  <div class="message" name="victoryMessage">
+    <div class="message-inner">
       <h2 class="message-title">you won!</h2>
       <h3 class="message-result">it took you <span class="res"></span> moves</h3>
       <button name="closeVictory">awesome!</button>
+    </div>
+  </div>
+
+  <div class="message open" name="helpMessage">
+    <div class="message-inner">
+      <h2 class="message-title">about</h2>
+      <p class="message-text">Color Puzzle is a game where your task is to solve a puzzle by matching coresponding fields by color. Just drag-and-drop to swap two field.</p>
+      <p class="message-text">You can change game settings by clicking <i class="fas fa-cog"></i> icon.</p>
+      <p class="message-text">You can quickly solve board by clicking <i class="fas fa-th"></i> icon or refresh it by clicking <i class="fas fa-sync-alt"></i> icon.</p>
+      <button name="closeHelp">thanks!</button>
     </div>
   </div>
 

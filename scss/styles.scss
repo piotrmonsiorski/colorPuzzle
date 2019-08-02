@@ -1,3 +1,10 @@
+$fontFamily: 'Lato', sans-serif;
+
+$colorDark: #222;
+$colorMain: #39a1c8;
+$colorDarkTransparent: rgba(0,0,0,0.75);
+$colorMainTransparent: rgba(15,100,145,0.75);
+
 input[type='number'] {
     -moz-appearance:textfield;
 }
@@ -9,7 +16,7 @@ input::-webkit-inner-spin-button {
 
 
 input, button {
-  font-family: sans-serif;
+  font-family: $fontFamily;
   text-transform: uppercase;
 }
 
@@ -25,24 +32,55 @@ body {
   align-items: center;
 }
 
+.tooltip-wrap:hover {
+  .tooltip {
+    opacity: 1;
+  }
+}
+.tooltip {
+  opacity: 0;
+  transition: opacity .25s linear;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: $colorMain;
+  text-align: center;
+  font-family: $fontFamily;
+  font-weight: bold;
+  font-size: .75rem;
+  text-transform: uppercase;
+  color: white;
+  &:before {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -8px;
+    border: 8px solid;
+    border-color: transparent transparent $colorMain transparent;
+  }
+}
+
+.fas,.far,.fab {
+  line-height: 1;
+}
+
 .menu {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 75px;
+  // height: 75px;
   z-index: 999;
-  overflow: hidden;
-  transition: height 0.5s ease-in-out;
-  background-color: rgba(0,0,0,0.75);
-  &.open {
-    height: 100vh;
-  }
+  background-color: $colorDarkTransparent;
   a {
     cursor: pointer;
   }
   .navbar {
-    position: absolute;
+    // position: absolute;
     height: 75px;
     padding: 20px;
     width: 100%;
@@ -54,22 +92,34 @@ body {
       display: block;
       padding: 6px;
     }
-    .moves {
-      padding: 0;
+    a:first-child {
+      margin-left: 20px;
+    }
+    a:last-child {
+      margin-right: 20px;
+    }
+    .current-game {
       display: flex;
-      flex-direction: column;
-      text-align: center;
-      span {
-        font-family: sans-serif;
-      }
-      .moves-label {
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 10px;
-      }
-      .moves-count {
-        padding-top: 5px;
-        font-size: 24px;
+      justify-content: space-between;
+      width: 300px;
+      padding: 0;
+      .moves {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        span {
+          font-family: $fontFamily;
+        }
+        .moves-label {
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 10px;
+        }
+        .moves-count {
+          padding-top: 5px;
+          font-size: 24px;
+        }
       }
     }
   }
@@ -77,8 +127,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 0;
+    z-index: 1;
+    overflow: hidden;
+    transition: height 1s ease-in-out;
+    &.open {
+      height: 100vh;
+      .settings-wrap {
+        opacity: 1;
+        transition-delay: 0.5s;
+      }
+    }
     .settings-wrap {
+      opacity: 0;
+      transition: opacity 0.25s linear 0s;
       .size {
         display: flex;
         flex-direction: row;
@@ -90,7 +152,7 @@ body {
           color: white;
           font-weight: bold;
           font-size: 10px;
-          font-family: sans-serif;
+          font-family: $fontFamily;
           text-transform: uppercase;
           text-align: center;
         }
@@ -139,7 +201,7 @@ body {
   }
 }
 
-.victory {
+.message {
   visibility: hidden;
   position: fixed;
   top: 0;
@@ -150,34 +212,43 @@ body {
   justify-content: center;;
   align-items: center;
   z-index: 9999;
-  background-color: rgba(0,0,0,0.75);
+  background-color: $colorDarkTransparent;
+  text-align: center;
   &.open {
     visibility: visible;
   }
-  .message {
+  .message-inner {
+    max-width: 500px;
     padding: 3rem 6rem;
-    background-color: rgba(15,100,145,0.75);
+    background-color: $colorMainTransparent;
+    color: white;
+    font-family: $fontFamily;
+    > * {
+      margin: 1rem 0;
+    }
     .message-title {
-      color: white;
+      margin-top: 0;
       font-size: 2rem;
-      font-family: sans-serif;
       text-transform: uppercase;
     }
     .message-result {
-      margin-top: 1rem;
-      color: white;
-      font-size: 0.75rem;
-      font-family: sans-serif;
-      text-transform: uppercase;
+      font-size: 0.875rem;
       text-align: center;
       .res {
+        text-transform: uppercase;
         font-weight: bold;
       }
+    }
+    .message-text {
+      margin: .5rem 0;
+      font-size: .875rem;
+      line-height: 150%;
+
     }
     button {
       width: 100%;
       padding: 5px;
-      margin: 15px 0 0;
+      margin-bottom: 0;
       font-size: 12px;
       font-weight: bold;
       text-align: center;
