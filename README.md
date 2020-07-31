@@ -1,4 +1,5 @@
 Created by Piotr Monsiorski @ monsiorski.com
+https://piotrmonsiorski.github.io/colorPuzzle/
 
 - - - - - -
 Version log:
